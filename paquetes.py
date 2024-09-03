@@ -102,11 +102,11 @@ while True:
             print("Paquete no encontrado.")
 #*------------------------------------------------------------------
     elif opcion == "3":
-        # Eliminar paque turistico por parte del administrador
+        # Eliminar paquete turistico por parte del administrador
         # verificar que es el administrador quien desea eliminar un paquete
         claveIngresada = int(input("Ingrese la clave de administrador: "))
         if claveIngresada == claveAdministrador:
-            destino_eliminar = input("Ingrese el destino del paquete a eliminar")
+            destino_eliminar = input("Ingrese el destino del paquete a eliminar: ")
             eliminado = False
 
             for paquete in lista_paquetes:
@@ -119,4 +119,41 @@ while True:
                 print("Paquete no encontrado")
         else:
             print("Clave incorrecta")
+#*------------------------------------------------------------------
+    elif opcion == "4":
+        # Reservar Paquete Turístico
+        destino_reservar = input("Ingrese el destino del paquete que desea reservar: ")
+        reservado = False
+
+        for paquete in lista_paquetes:
+            if paquete["destino"].lower() == destino_reservar.lower():
+                confirmacion = input(f"¿Desea reservar el paquete a {paquete['destino']}? (s/n): ")
+                if confirmacion.lower() == 's':
+                    lista_reservas.append(paquete)
+                    print("Reserva realizada exitosamente.")
+                    reservado = True
+                break
+
+        if not reservado:
+            print("Paquete no encontrado para reservar.")
+#*------------------------------------------------------------------
+    elif opcion == "5":
+        # Ver Reservas
+        if lista_reservas:
+            # Generamos una variable para hacer una lista enumerada de reservas
+            i = 1  # Inicializamos el contador en 1
+            # reserva es el elemento actual de cada reserva que hay en lista_reservas
+            for reserva in lista_reservas:
+                print(f"Reserva {i}: Destino: {reserva['destino']} - Fechas: {reserva['fechas']} - Precio: {reserva['precio']}")
+                i += 1  # Incrementar el contador manualmente
+        else:
+            print("No tienes reservas.")
+#*------------------------------------------------------------------
+    elif opcion == '6':
+        # Salir del programa
+        print("Saliendo...")
+        break
+
+    else:
+        print("Opción no válida. Intente nuevamente.")
 # Fin
