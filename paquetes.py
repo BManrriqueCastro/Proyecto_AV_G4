@@ -80,7 +80,7 @@ while True:
             print("Clave incorrecta")
 #*------------------------------------------------------------------
     # Busqueda de paquetes disponibles por parte del usuario
-    elif opcion == '2':
+    elif opcion == "2":
     # Visualizar todos los destinos actuales
     # Para facilitar la selección y búsqueda del paquete al usuario.
         if lista_paquetes:
@@ -100,4 +100,23 @@ while True:
                 break
         if not encontrado:
             print("Paquete no encontrado.")
+#*------------------------------------------------------------------
+    elif opcion == "3":
+        # Eliminar paque turistico por parte del administrador
+        # verificar que es el administrador quien desea eliminar un paquete
+        claveIngresada = int(input("Ingrese la clave de administrador: "))
+        if claveIngresada == claveAdministrador:
+            destino_eliminar = input("Ingrese el destino del paquete a eliminar")
+            eliminado = False
+
+            for paquete in lista_paquetes:
+                if paquete["destino"].lower() == destino_eliminar.lower():
+                    lista_paquetes.remove(paquete)
+                    print(f"paquete {destino_eliminar} eliminado exitosamente.")
+                    eliminado = True
+                    break
+            if not eliminado:
+                print("Paquete no encontrado")
+        else:
+            print("Clave incorrecta")
 # Fin
