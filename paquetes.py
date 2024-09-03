@@ -31,4 +31,73 @@ lista_paquetes = [
 ]
 # Lista donde se guardaran todos los datos de un paquete que se haya reservado
 lista_reservas = []
+claveAdministrador = 1234
+
+while True:
+    # Mostrar menú de opciones
+    print("\n1. Crear Paquete Turístico")
+    print("2. Buscar Paquete Turístico")
+    print("3. Eliminar Paquete Turístico")
+    print("4. Reservar Paquete Turístico")
+    print("5. Ver Reservas")
+    print("6. Salir")
+    # Seleccionar un numero para ingresar a ese menu
+    opcion = input("Selecciona una opción: ")
+#*------------------------------------------------------------------
+    # Creación de nuevos paquetes por parte del administrador
+    if opcion == "1":
+        # verificar que es el administrador es quien desea crear un paquete
+        claveIngresada = int(input("Ingrese la clave de administrador: "))
+        if claveIngresada == claveAdministrador:
+            print("\nPor favor, ingrese la información para el nuevo paquete turístico.")
+            destino = input("Ingrese el destino: ").strip()
+            fechas = input("Ingrese las fechas con formato DD/MM/AA: ").strip()
+            precio = input("Ingrese el precio: ").strip()
+            descripcion = input("Ingrese la descripcion: ").strip()
+            # Validar que todos los campos estén completos
+            # Si al menos uno de los campos está vacío, se muestra un mensaje de error y el paquete no se crea.
+            if not destino or not fechas or not precio or not descripcion:
+                print("Error: Todos los campos son obligatorios. Intente nuevamente.")
+                continue
+            else:
+                # Convertir precio a un número flotante
+                try:
+                    precio = float(precio)
+                except ValueError:
+                    print("Error: El precio debe ser un número.")
+                    continue
+
+            paquete = {
+                "destino": destino,
+                "fechas": fechas,
+                "precio": precio,
+                "descripcion": descripcion
+            }
+
+            lista_paquetes.append(paquete)
+            print("Paquete creado exitosamente.")
+        else:
+            print("Clave incorrecta")
+#*------------------------------------------------------------------
+    # Busqueda de paquetes disponibles por parte del usuario
+    elif opcion == '2':
+    # Visualizar todos los destinos actuales
+    # Para facilitar la selección y búsqueda del paquete al usuario.
+        if lista_paquetes:
+            print("\nDestinos disponibles:")
+            for paquete in lista_paquetes:
+                print(f"- {paquete['destino']}")
+        # Buscar Paquete.
+        destino_busqueda = input("Ingrese el destino para ver el paquete: ")
+        # La variable "encontrado" la utilizamos para verificar si se encontro o no el paquete e imprimir el mensaje de paquete no encontrado
+        encontrado = False
+
+        for paquete in lista_paquetes:
+            if paquete["destino"].lower() == destino_busqueda.lower():
+                print(f"Destino: {paquete['destino']}, Fechas: {paquete['fechas']}, Precio: {paquete['precio']}")
+                print(f"Descripción: {paquete['descripcion']}")
+                encontrado = True
+                break
+        if not encontrado:
+            print("Paquete no encontrado.")
 # Fin
